@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseBottomSheetPlainStyle" parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetPlainTheme</item>
+    </style>
+
+    <style name="BottomSheetPlainTheme" parent="BaseBottomSheetPlainStyle">
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">#ffffff</item>
+    </style>
+</resources>
