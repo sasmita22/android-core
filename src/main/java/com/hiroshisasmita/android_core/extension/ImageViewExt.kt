@@ -1,14 +1,13 @@
 package com.hiroshisasmita.android_core.extension
 
-import android.net.Uri
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 
-fun ImageView.extLoadImage(uri: Uri, options: RequestOptions) {
+fun ImageView.extLoadImage(url: String, options: RequestOptions = RequestOptions()) {
     Glide.with(this)
-        .load(uri)
+        .load(url)
         .apply(options)
         .into(this)
 }
