@@ -1,4 +1,4 @@
-package com.hiroshisasmita.android_core.base
+package com.hiroshisasmita.android_core.base.data.network
 
 object ResponseCode {
     const val BAD_REQUEST = 400

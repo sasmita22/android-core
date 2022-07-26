@@ -1,4 +1,4 @@
-package com.hiroshisasmita.android_core.base
+package com.hiroshisasmita.android_core.base.presentation
 
 import androidx.lifecycle.Observer
 

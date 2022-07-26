@@ -1,9 +1,8 @@
-package com.hiroshisasmita.android_core.base
+package com.hiroshisasmita.android_core.base.presentation
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 
 abstract class BaseViewModelFragment<VM: ViewModel, BIND: ViewDataBinding>: BaseFragment<BIND>() {
     protected lateinit var viewModel: VM

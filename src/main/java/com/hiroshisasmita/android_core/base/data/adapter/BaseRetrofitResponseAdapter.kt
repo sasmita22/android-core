@@ -1,21 +1,23 @@
-package com.hiroshisasmita.android_core.base
+package com.hiroshisasmita.android_core.base.data.adapter
 
 import com.google.gson.Gson
+import com.hiroshisasmita.android_core.base.presentation.ResultState
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import java.lang.reflect.Type
 
-abstract class BaseRetrofitResponsePlainAdapter<Before: Any, Result: Any> {
+abstract class BaseRetrofitResponseAdapter<Before: Any, Result: Any> {
 
     /**
      * Function to handle asynchronous api
      */
-    suspend fun handleApi(response: Response<Before>): Result? {
+    suspend fun handleApi(block: suspend () -> Response<Before>): ResultState<Result> {
         return try {
+            val response = block.invoke()
             proceed(response)
         }catch (e: Exception) {
-            throw e
+            ResultState.Error(e)
         }
 
     }
@@ -23,12 +25,12 @@ abstract class BaseRetrofitResponsePlainAdapter<Before: Any, Result: Any> {
     /**
      * Function to handle synchronous api
      */
-    fun handleApiSynchronously(block: () -> Call<Before>): Result? {
+    fun handleApiSynchronously(block: () -> Call<Before>): ResultState<Result> {
         return try {
             val response = block.invoke().execute()
             proceed(response)
         }catch (e: Exception) {
-            throw e
+            ResultState.Error(e)
         }
 
     }
@@ -37,7 +39,7 @@ abstract class BaseRetrofitResponsePlainAdapter<Before: Any, Result: Any> {
      * Function to proceed api call
      */
     @Throws(Exception::class)
-    private fun proceed(response: Response<Before>): Result? {
+    private fun proceed(response: Response<Before>): ResultState<Result> {
         if (!response.isSuccessful) {
             throw response.errorBody()?.let {
                 fetchError(it, response.code())
@@ -46,14 +48,14 @@ abstract class BaseRetrofitResponsePlainAdapter<Before: Any, Result: Any> {
 
         return response.body()?.let {
             fetchSuccessData(it)
-        }
+        } ?: throw Exception()
     }
 
     /**
      * Function to handle data when response isSuccessful
      */
     @Throws(Exception::class)
-    protected abstract fun fetchSuccessData(data: Before): Result?
+    protected abstract fun fetchSuccessData(data: Before): ResultState<Result>
 
     /**
      * Function to handle data when response isError

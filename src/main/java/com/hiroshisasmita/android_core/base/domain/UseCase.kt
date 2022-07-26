@@ -1,4 +1,4 @@
-package com.hiroshisasmita.android_core.base
+package com.hiroshisasmita.android_core.base.domain
 
 abstract class UseCase<Q : UseCase.RequestValues, P : UseCase.ResponseValues> {
 

@@ -1,4 +1,4 @@
-package com.hiroshisasmita.android_core.base
+package com.hiroshisasmita.android_core.base.presentation
 
 import com.google.gson.Gson
 import com.google.gson.internal.LinkedTreeMap
